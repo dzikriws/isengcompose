@@ -23,7 +23,10 @@ class MainActivity : ComponentActivity() {
             var isDarkMode by remember { mutableStateOf(false) }
 
             Theme(useDarkTheme = isDarkMode) {
-                BottomNav {
+                Surface(
+                    modifier = Modifier.fillMaxSize(),
+                    color = MaterialTheme.colorScheme.background
+                ) {
                     MainScreen(
                         isDarkMode = isDarkMode,
                         toggleTheme = { isDarkMode = !isDarkMode }
@@ -42,43 +45,38 @@ fun MainScreen(
     val navController = rememberNavController()
     val items = listOf(Screen.Home, Screen.Profile, Screen.Settings)
 
-    Surface(
-        modifier = Modifier.fillMaxSize(),
-        color = MaterialTheme.colorScheme.background
-    ){
-        Scaffold(
-            bottomBar = {
-                NavigationBar {
-                    val currentDestination = navController.currentBackStackEntryAsState().value?.destination?.route
-                    items.forEach { screen ->
-                        NavigationBarItem(
-                            icon = { Icon(screen.icon, contentDescription = screen.label) },
-                            label = { Text(screen.label) },
-                            selected = currentDestination == screen.route,
-                            onClick = {
-                                navController.navigate(screen.route) {
-                                    popUpTo(navController.graph.startDestinationId)
-                                    launchSingleTop = true
-                                }
+    Scaffold(
+        bottomBar = {
+            NavigationBar {
+                val currentDestination = navController.currentBackStackEntryAsState().value?.destination?.route
+                items.forEach { screen ->
+                    NavigationBarItem(
+                        icon = { Icon(screen.icon, contentDescription = screen.label) },
+                        label = { Text(screen.label) },
+                        selected = currentDestination == screen.route,
+                        onClick = {
+                            navController.navigate(screen.route) {
+                                popUpTo(navController.graph.startDestinationId)
+                                launchSingleTop = true
                             }
-                        )
-                    }
+                        }
+                    )
                 }
-            },
-            modifier = Modifier.background(MaterialTheme.colorScheme.background)
-        ) { padding ->
-            NavHost(
-                navController = navController,
-                startDestination = Screen.Home.route,
-                Modifier
-                    .padding(padding)
-                    .fillMaxSize()
-            ) {
-                composable(Screen.Home.route) { HomeScreen() }
-                composable(Screen.Profile.route) { ProfileScreen() }
-                composable(Screen.Settings.route) {
-                    SettingsScreen(isDarkMode = isDarkMode, toggleTheme = toggleTheme)
-                }
+            }
+        },
+        modifier = Modifier.background(MaterialTheme.colorScheme.background)
+    ) { padding ->
+        NavHost(
+            navController = navController,
+            startDestination = Screen.Home.route,
+            Modifier
+                .padding(padding)
+                .fillMaxSize()
+        ) {
+            composable(Screen.Home.route) { HomeScreen() }
+            composable(Screen.Profile.route) { ProfileScreen() }
+            composable(Screen.Settings.route) {
+                SettingsScreen(isDarkMode = isDarkMode, toggleTheme = toggleTheme)
             }
         }
     }
