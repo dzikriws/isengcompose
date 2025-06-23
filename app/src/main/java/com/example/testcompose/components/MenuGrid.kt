@@ -27,7 +27,7 @@ fun IconMenuGrid(
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(1.dp)
+            .padding(1.dp, bottom = 12.dp)
             .border(
                 width = 2.dp,
                 color = MaterialTheme.colorScheme.outlineVariant,

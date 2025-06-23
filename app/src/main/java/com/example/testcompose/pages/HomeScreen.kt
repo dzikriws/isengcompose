@@ -14,7 +14,7 @@ import com.example.testcompose.components.TopNavBar
 
 @Composable
 fun HomeScreen(navController: NavController) {
-    val menuItems = listOf(
+    val menuItemsPembayaran = listOf(
         MenuItem("Pulsa", Icons.Default.Phone) {
             navController.navigate("pulsa")
         },
@@ -32,6 +32,19 @@ fun HomeScreen(navController: NavController) {
         }
     )
 
+    val menuItemsPembayaran2 = listOf(
+        MenuItem("Pulsa", Icons.Default.Phone) {
+            navController.navigate("pulsa")
+        },
+        MenuItem("Token", Icons.Default.Face) {
+            navController.navigate("token")
+        },
+        MenuItem("Settings", Icons.Default.Settings) {
+            navController.navigate("settings")
+        }
+    )
+
+
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -44,6 +57,7 @@ fun HomeScreen(navController: NavController) {
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        IconMenuGrid( title = "Pembayaran",items = menuItems)
+        IconMenuGrid( title = "Pembayaran",items = menuItemsPembayaran)
+        IconMenuGrid( title = "Tagihan",items = menuItemsPembayaran2)
     }
 }
