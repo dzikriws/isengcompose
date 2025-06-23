@@ -8,11 +8,10 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.navigation.compose.*
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.*
-import com.example.testcompose.pages.*
+import com.example.testcompose.components.BottomNavBar
+import com.example.testcompose.components.AppNavigation
+import com.example.testcompose.navigation.Screen
 import com.example.testcompose.ui.theme.*
 
 class MainActivity : ComponentActivity() {
@@ -50,53 +49,19 @@ fun MainScreen(
     Scaffold(
         bottomBar = {
             if (showBottomBar) {
-                NavigationBar {
-                    bottomNavScreens.forEach { screen ->
-                        NavigationBarItem(
-                            icon = { Icon(screen.icon, contentDescription = screen.label) },
-                            label = { Text(screen.label) },
-                            selected = currentRoute == screen.route,
-                            onClick = {
-                                navController.navigate(screen.route) {
-                                    popUpTo(navController.graph.startDestinationId)
-                                    launchSingleTop = true
-                                }
-                            }
-                        )
-                    }
-                }
+                BottomNavBar(navController = navController, items = bottomNavScreens)
             }
         },
         modifier = Modifier.background(MaterialTheme.colorScheme.background)
     ) { padding ->
-        NavHost(
+        AppNavigation(
             navController = navController,
-            startDestination = Screen.Home.route,
             modifier = Modifier
                 .padding(padding)
-                .fillMaxSize()
-        ) {
-            composable(Screen.Home.route) {
-                HomeScreen(navController)
-            }
-            composable(Screen.Profile.route) {
-                ProfileScreen()
-            }
-            composable(Screen.Settings.route) {
-                SettingsScreen(isDarkMode = isDarkMode, toggleTheme = toggleTheme)
-            }
-            composable("pulsa") {
-                PulsaScreen(navController)
-            }
-            composable("token") {
-                TokenScreen(navController)
-            }
-        }
-    }
-}
+                .fillMaxSize(),
+            isDarkMode = isDarkMode,
+            toggleTheme = toggleTheme
+        )
 
-sealed class Screen(val route: String, val label: String, val icon: ImageVector) {
-    data object Home : Screen("home", "Home", Icons.Default.Home)
-    data object Profile : Screen("profile", "Profile", Icons.Default.Person)
-    data object Settings : Screen("settings", "Settings", Icons.Default.Settings)
+    }
 }
