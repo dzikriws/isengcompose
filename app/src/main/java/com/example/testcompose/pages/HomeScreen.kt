@@ -9,11 +9,14 @@ import com.example.testcompose.components.IconMenuGrid
 import com.example.testcompose.components.MenuItem
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
-import androidx.compose.ui.Alignment
 import com.example.testcompose.components.TopNavBar
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 
 @Composable
 fun HomeScreen(navController: NavController) {
+    val scrollState = rememberScrollState()
+
     val menuItemsPembayaran = listOf(
         MenuItem("Pulsa", Icons.Default.Phone) {
             navController.navigate("pulsa")
@@ -48,16 +51,22 @@ fun HomeScreen(navController: NavController) {
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(24.dp),
-        verticalArrangement = Arrangement.Top,
-        horizontalAlignment = Alignment.CenterHorizontally
+            .padding(horizontal = 24.dp),
+        verticalArrangement = Arrangement.Top
     ) {
-
         TopNavBar()
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        IconMenuGrid( title = "Pembayaran",items = menuItemsPembayaran)
-        IconMenuGrid( title = "Tagihan",items = menuItemsPembayaran2)
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .verticalScroll(scrollState)
+        ) {
+            IconMenuGrid(title = "Pembayaran", items = menuItemsPembayaran)
+            IconMenuGrid(title = "Pembayaran", items = menuItemsPembayaran)
+            IconMenuGrid(title = "Pembayaran", items = menuItemsPembayaran)
+            IconMenuGrid(title = "Tagihan", items = menuItemsPembayaran2)
+        }
     }
 }
