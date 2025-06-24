@@ -2,6 +2,7 @@ package com.example.testcompose.utils
 
 import android.content.Context
 import android.content.SharedPreferences
+import androidx.core.content.edit
 
 class SessionManager(context: Context) {
     private val prefs: SharedPreferences =
@@ -21,6 +22,6 @@ class SessionManager(context: Context) {
     }
 
     fun clearSession() {
-        prefs.edit().clear().apply()
+        prefs.edit { clear() }
     }
 }

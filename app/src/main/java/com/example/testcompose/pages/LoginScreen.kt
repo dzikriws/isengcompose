@@ -16,7 +16,7 @@ import java.io.IOException
 
 @Composable
 fun LoginScreen(navController: NavController) {
-    var email by remember { mutableStateOf("") }
+    var username by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
     val context = LocalContext.current
     val snackbarHostState = remember { SnackbarHostState() }
@@ -42,9 +42,9 @@ fun LoginScreen(navController: NavController) {
             )
 
             OutlinedTextField(
-                value = email,
-                onValueChange = { email = it },
-                label = { Text("Email") },
+                value = username,
+                onValueChange = { username = it },
+                label = { Text("Username") },
                 singleLine = true,
                 modifier = Modifier.fillMaxWidth()
             )
@@ -65,14 +65,14 @@ fun LoginScreen(navController: NavController) {
             Button(
                 onClick = {
                     coroutineScope.launch {
-                        if (email.isBlank() || password.isBlank()) {
-                            snackbarHostState.showSnackbar("Email dan password harus diisi.")
+                        if (username.isBlank() || password.isBlank()) {
+                            snackbarHostState.showSnackbar("Username dan password harus diisi.")
                             return@launch
                         }
 
                         try {
 
-//                            val response = UserService.login(email, password)
+//                            val response = UserService.login(username, password)
 //                            sessionManager.saveUserSession(
 //                                token = response.token,
 //                                userId = response.userId,
@@ -81,7 +81,7 @@ fun LoginScreen(navController: NavController) {
 //                            navController.navigate("home") {
 //                                popUpTo("login") { inclusive = true }
 //                            }
-                            if (email == "admin" && password == "admin") {
+                            if (username == "admin" && password == "admin") {
                                 sessionManager.saveUserSession(
                                     token = "dummy_token_123",
                                     userId = "1",
