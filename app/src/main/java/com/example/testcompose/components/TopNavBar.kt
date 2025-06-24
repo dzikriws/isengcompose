@@ -15,7 +15,7 @@ import com.example.testcompose.R
 @Composable
 fun TopNavBar(
     userBalance: String = "Rp 123.456",
-    profileImageRes: Int = R.drawable.profile_dummy // ganti sesuai resource
+    profileImageRes: Int = R.drawable.profile_dummy
 ) {
     Row(
         modifier = Modifier

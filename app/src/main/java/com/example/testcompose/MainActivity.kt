@@ -13,6 +13,9 @@ import com.example.testcompose.components.BottomNavBar
 import com.example.testcompose.components.AppNavigation
 import com.example.testcompose.navigation.Screen
 import com.example.testcompose.ui.theme.*
+import androidx.compose.ui.platform.LocalContext
+import com.example.testcompose.utils.SessionManager
+
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -40,9 +43,15 @@ fun MainScreen(
     isDarkMode: Boolean,
     toggleTheme: () -> Unit
 ) {
-    val navController = rememberNavController()
-    val bottomNavScreens = listOf(Screen.Home, Screen.Profile, Screen.Settings)
+    val context = LocalContext.current
+    val sessionManager = remember { SessionManager(context) }
+    val isLoggedIn = remember { sessionManager.isLoggedIn() }
 
+    val navController = rememberNavController()
+
+    val startDestination = if (isLoggedIn) "home" else "login"
+
+    val bottomNavScreens = listOf(Screen.Home, Screen.Profile, Screen.Settings)
     val currentRoute = navController.currentBackStackEntryAsState().value?.destination?.route
     val showBottomBar = bottomNavScreens.any { it.route == currentRoute }
 
@@ -60,8 +69,8 @@ fun MainScreen(
                 .padding(padding)
                 .fillMaxSize(),
             isDarkMode = isDarkMode,
-            toggleTheme = toggleTheme
+            toggleTheme = toggleTheme,
+            startDestination = startDestination
         )
-
     }
 }

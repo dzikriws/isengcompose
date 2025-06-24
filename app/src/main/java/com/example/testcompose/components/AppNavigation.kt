@@ -12,16 +12,18 @@ fun AppNavigation(
     navController: NavHostController,
     modifier: Modifier = Modifier,
     isDarkMode: Boolean,
-    toggleTheme: () -> Unit
+    toggleTheme: () -> Unit,
+    startDestination: String
 ) {
     NavHost(
         navController = navController,
-        startDestination = "home",
+        startDestination = startDestination,
         modifier = modifier
     ) {
+        composable("login") {LoginScreen((navController))}
         composable("home") { HomeScreen(navController) }
         composable("profile") { ProfileScreen() }
-        composable("settings") { SettingsScreen(isDarkMode, toggleTheme) }
+        composable("settings") { SettingsScreen(isDarkMode, toggleTheme, navController) }
         composable("pulsa") { PulsaScreen(navController) }
         composable("token") { TokenScreen(navController) }
     }
