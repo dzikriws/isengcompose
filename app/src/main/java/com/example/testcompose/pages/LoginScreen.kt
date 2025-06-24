@@ -8,8 +8,11 @@ import androidx.compose.ui.text.input.*
 import androidx.compose.ui.unit.*
 import androidx.navigation.NavController
 import androidx.compose.ui.platform.LocalContext
+import com.example.testcompose.service.UserService
 import com.example.testcompose.utils.SessionManager
 import kotlinx.coroutines.launch
+import retrofit2.HttpException
+import java.io.IOException
 
 @Composable
 fun LoginScreen(navController: NavController) {
@@ -61,18 +64,40 @@ fun LoginScreen(navController: NavController) {
 
             Button(
                 onClick = {
-                    if (email == "admin" && password == "admin") {
-                        sessionManager.saveUserSession(
-                            token = "dummy_token_123",
-                            userId = "1",
-                            username = "admin"
-                        )
-                        navController.navigate("home") {
-                            popUpTo("login") { inclusive = true }
+                    coroutineScope.launch {
+                        if (email.isBlank() || password.isBlank()) {
+                            snackbarHostState.showSnackbar("Email dan password harus diisi.")
+                            return@launch
                         }
-                    } else {
-                        coroutineScope.launch {
-                            snackbarHostState.showSnackbar("Login gagal: username atau password salah.")
+
+                        try {
+
+//                            val response = UserService.login(email, password)
+//                            sessionManager.saveUserSession(
+//                                token = response.token,
+//                                userId = response.userId,
+//                                username = response.username
+//                            )
+//                            navController.navigate("home") {
+//                                popUpTo("login") { inclusive = true }
+//                            }
+                            if (email == "admin" && password == "admin") {
+                                sessionManager.saveUserSession(
+                                    token = "dummy_token_123",
+                                    userId = "1",
+                                    username = "admin"
+                                )
+                                navController.navigate("home") {
+                                    popUpTo("login") { inclusive = true }
+                                }
+                            }
+                        } catch (e: HttpException) {
+                            snackbarHostState.showSnackbar("Login gagal: ${e.message()}")
+                        } catch (e: IOException) {
+                            snackbarHostState.showSnackbar("Tidak dapat terhubung ke server.")
+                            println(e)
+                        } catch (e: Exception) {
+                            snackbarHostState.showSnackbar("Terjadi kesalahan: ${e.localizedMessage}")
                         }
                     }
                 },
