@@ -7,6 +7,7 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.currentBackStackEntryAsState
@@ -38,11 +39,23 @@ fun BottomNavBar(
 
             NavigationBarItem(
                 icon = {
-                    Icon(
-                        imageVector = screen.icon,
-                        contentDescription = screen.label,
-                        modifier = iconModifier
-                    )
+                    when {
+                        screen.iconResId != null -> {
+                            Icon(
+                                painter = painterResource(id = screen.iconResId),
+                                contentDescription = screen.label,
+                                tint = LocalContentColor.current,
+                                modifier = iconModifier
+                            )
+                        }
+                        screen.iconVector != null -> {
+                            Icon(
+                                imageVector = screen.iconVector,
+                                contentDescription = screen.label,
+                                modifier = iconModifier
+                            )
+                        }
+                    }
                 },
                 label = { Text(screen.label) },
                 selected = isSelected,
