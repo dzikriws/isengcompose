@@ -22,14 +22,15 @@ fun BottomNavBar(
     val isOdd = items.size % 2 != 0
     val middleIndex = if (isOdd) items.size / 2 else -1
 
-    NavigationBar {
+    NavigationBar(
+        containerColor = MaterialTheme.colorScheme.primary
+    ) {
         items.forEachIndexed { index, screen ->
             val isSelected = currentRoute == screen.route
 
             val iconModifier = if (isOdd && index == middleIndex) {
                 Modifier
                     .size(48.dp)
-                    .padding(4.dp)
                     .border(2.dp, MaterialTheme.colorScheme.primary, CircleShape)
                     .background(MaterialTheme.colorScheme.primary.copy(alpha = 0.1f), CircleShape)
                     .padding(8.dp)

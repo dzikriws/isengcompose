@@ -9,7 +9,6 @@ import com.example.testcompose.components.IconMenuGrid
 import com.example.testcompose.components.MenuItem
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
-import com.example.testcompose.components.TopNavBar
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 
@@ -54,7 +53,6 @@ fun HomeScreen(navController: NavController) {
             .padding(horizontal = 24.dp),
         verticalArrangement = Arrangement.Top
     ) {
-        TopNavBar()
 
         Spacer(modifier = Modifier.height(16.dp))
 

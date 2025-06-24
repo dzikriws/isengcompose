@@ -14,6 +14,7 @@ import com.example.testcompose.components.AppNavigation
 import com.example.testcompose.navigation.Screen
 import com.example.testcompose.ui.theme.*
 import androidx.compose.ui.platform.LocalContext
+import com.example.testcompose.components.TopNavBar
 import com.example.testcompose.utils.SessionManager
 
 
@@ -51,17 +52,24 @@ fun MainScreen(
 
     val startDestination = if (isLoggedIn) "home" else "login"
 
-    val bottomNavScreens = listOf(Screen.Home, Screen.Promotion, Screen.Qris, Screen.History, Screen.Settings)
+    val navScreens = listOf(Screen.Home, Screen.Promotion, Screen.Qris, Screen.History, Screen.Settings)
     val currentRoute = navController.currentBackStackEntryAsState().value?.destination?.route
-    val showBottomBar = bottomNavScreens.any { it.route == currentRoute }
+    val showBar = navScreens.any { it.route == currentRoute }
 
     Scaffold(
-        bottomBar = {
-            if (showBottomBar) {
-                BottomNavBar(navController = navController, items = bottomNavScreens)
+        topBar = {
+            if (showBar) {
+                TopNavBar()
             }
         },
-        modifier = Modifier.background(MaterialTheme.colorScheme.background)
+        bottomBar = {
+            if (showBar) {
+                BottomNavBar(navController = navController, items = navScreens)
+            }
+        },
+        modifier = Modifier
+            .fillMaxSize()
+            .background(MaterialTheme.colorScheme.background)
     ) { padding ->
         AppNavigation(
             navController = navController,

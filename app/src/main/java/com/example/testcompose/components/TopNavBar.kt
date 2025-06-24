@@ -1,6 +1,7 @@
 package com.example.testcompose.components
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.*
@@ -17,26 +18,39 @@ fun TopNavBar(
     userBalance: String = "Rp 123.456",
     profileImageRes: Int = R.drawable.profile_dummy
 ) {
-    Row(
+    Surface(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(horizontal = 12.dp, vertical = 1.dp),
-        horizontalArrangement = Arrangement.SpaceBetween,
-        verticalAlignment = Alignment.CenterVertically
+            .background(MaterialTheme.colorScheme.primary),
+        color = MaterialTheme.colorScheme.primary,
+        shadowElevation = 4.dp
     ) {
-        Text(
-            text = "Saldo: $userBalance",
-            style = MaterialTheme.typography.bodyLarge,
-            color = MaterialTheme.colorScheme.onBackground
-        )
-
-        Image(
-            painter = painterResource(id = profileImageRes),
-            contentDescription = "Profile Picture",
-            contentScale = ContentScale.Crop,
+        Row(
             modifier = Modifier
-                .size(36.dp)
-                .clip(CircleShape)
-        )
+                .fillMaxWidth()
+                .padding(
+                    top = WindowInsets.statusBars.asPaddingValues().calculateTopPadding(),
+                    start = 16.dp,
+                    end = 16.dp,
+                    bottom = 12.dp
+                ),
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Text(
+                text = "Saldo: $userBalance",
+                style = MaterialTheme.typography.bodyLarge,
+                color = MaterialTheme.colorScheme.onPrimary
+            )
+
+            Image(
+                painter = painterResource(id = profileImageRes),
+                contentDescription = "Profile Picture",
+                contentScale = ContentScale.Crop,
+                modifier = Modifier
+                    .size(36.dp)
+                    .clip(CircleShape)
+            )
+        }
     }
 }
