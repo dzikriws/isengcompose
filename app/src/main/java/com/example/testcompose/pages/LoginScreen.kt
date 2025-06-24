@@ -19,6 +19,7 @@ fun LoginScreen(navController: NavController) {
     var username by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
     val context = LocalContext.current
+    val userService = remember { UserService(context) }
     val snackbarHostState = remember { SnackbarHostState() }
     val sessionManager = remember { SessionManager(context) }
     val coroutineScope = rememberCoroutineScope()
@@ -71,8 +72,7 @@ fun LoginScreen(navController: NavController) {
                         }
 
                         try {
-
-//                            val response = UserService.login(username, password)
+//                            val response = userService.login(username, password)
 //                            sessionManager.saveUserSession(
 //                                token = response.token,
 //                                userId = response.userId,

@@ -1,7 +1,7 @@
 package com.example.testcompose.service
 
-import com.example.testcompose.model.LoginRequest
-import com.example.testcompose.model.LoginResponse
+import com.example.testcompose.model.user.LoginRequest
+import com.example.testcompose.model.user.LoginResponse
 import retrofit2.http.Body
 import retrofit2.http.POST
 

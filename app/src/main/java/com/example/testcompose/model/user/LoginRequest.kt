@@ -1,4 +1,4 @@
-package com.example.testcompose.model
+package com.example.testcompose.model.user
 
 data class LoginResponse(
     val token: String,

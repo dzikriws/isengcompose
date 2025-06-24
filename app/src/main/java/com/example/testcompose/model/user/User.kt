@@ -1,4 +1,4 @@
-package com.example.testcompose.model
+package com.example.testcompose.model.user
 
 data class User(
     val id: String,

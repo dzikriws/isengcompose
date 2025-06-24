@@ -17,6 +17,11 @@ class SessionManager(context: Context) {
         }
     }
 
+    fun getToken(): String? {
+        return prefs.getString("token", null)
+    }
+
+
     fun isLoggedIn(): Boolean {
         return !prefs.getString("token", null).isNullOrEmpty()
     }
