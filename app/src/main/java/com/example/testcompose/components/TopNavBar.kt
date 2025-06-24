@@ -21,8 +21,8 @@ fun TopNavBar(
     Surface(
         modifier = Modifier
             .fillMaxWidth()
-            .background(MaterialTheme.colorScheme.primary),
-        color = MaterialTheme.colorScheme.primary,
+            .background(MaterialTheme.colorScheme.primaryContainer),
+        color = MaterialTheme.colorScheme.primaryContainer,
         shadowElevation = 4.dp
     ) {
         Row(
@@ -40,7 +40,7 @@ fun TopNavBar(
             Text(
                 text = "Saldo: $userBalance",
                 style = MaterialTheme.typography.bodyLarge,
-                color = MaterialTheme.colorScheme.onPrimary
+                color = MaterialTheme.colorScheme.onPrimaryContainer
             )
 
             Image(

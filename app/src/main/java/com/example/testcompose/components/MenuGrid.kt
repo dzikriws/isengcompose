@@ -70,7 +70,7 @@ fun IconMenuGrid(
                             Icon(
                                 imageVector = item.icon,
                                 contentDescription = item.label,
-                                tint = MaterialTheme.colorScheme.primary,
+                                tint = LocalContentColor.current,
                                 modifier = Modifier.size(24.dp)
                             )
                             Spacer(modifier = Modifier.height(4.dp))
