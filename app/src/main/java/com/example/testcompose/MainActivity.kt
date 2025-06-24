@@ -51,7 +51,7 @@ fun MainScreen(
 
     val startDestination = if (isLoggedIn) "home" else "login"
 
-    val bottomNavScreens = listOf(Screen.Home, Screen.Profile, Screen.Settings)
+    val bottomNavScreens = listOf(Screen.Home, Screen.Promotion, Screen.Qris, Screen.History, Screen.Settings)
     val currentRoute = navController.currentBackStackEntryAsState().value?.destination?.route
     val showBottomBar = bottomNavScreens.any { it.route == currentRoute }
 

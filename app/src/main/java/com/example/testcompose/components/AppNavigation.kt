@@ -6,6 +6,8 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.example.testcompose.pages.*
+import com.example.testcompose.pages.home.PulsaScreen
+import com.example.testcompose.pages.home.TokenScreen
 
 @Composable
 fun AppNavigation(
@@ -22,9 +24,11 @@ fun AppNavigation(
     ) {
         composable("login") {LoginScreen((navController))}
         composable("home") { HomeScreen(navController) }
-        composable("profile") { ProfileScreen() }
+        composable("qris") { QrisScreen() }
         composable("settings") { SettingsScreen(isDarkMode, toggleTheme, navController) }
         composable("pulsa") { PulsaScreen(navController) }
         composable("token") { TokenScreen(navController) }
+        composable("promotion") { PromotionScreen(navController) }
+        composable("history") { HistoryScreen(navController) }
     }
 }

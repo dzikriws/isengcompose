@@ -1,4 +1,4 @@
-package com.example.testcompose.pages
+package com.example.testcompose.pages.home
 
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
@@ -12,10 +12,10 @@ import androidx.compose.ui.unit.dp
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun PulsaScreen(navController: NavController) {
+fun TokenScreen(navController: NavController) {
     Column {
         TopAppBar(
-            title = { Text("Bayar Pulsa") },
+            title = { Text("Bayar Token") },
             navigationIcon = {
                 IconButton(onClick = { navController.popBackStack() }) {
                     Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Back")
@@ -28,7 +28,7 @@ fun PulsaScreen(navController: NavController) {
                 .padding(24.dp),
             contentAlignment = Alignment.Center
         ) {
-            Text("Halaman Bayar Pulsa")
+            Text("Halaman Bayar Token")
         }
     }
 }
